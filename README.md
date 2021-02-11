@@ -5,6 +5,7 @@
 данные для входа 
 
 username: test_super
+
 password: Nf<U4f<rDbtDxAPn
 
 In the project directory, you can run:
