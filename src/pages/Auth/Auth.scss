@@ -1,0 +1,29 @@
+.container-auth {
+	height: 100vh;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #7fffd4;
+	.auth {
+		width: 450px;
+		background-color: white;
+		border-radius: 20px;
+		.auth__form {
+			width: 330px;
+			margin: 0 auto;
+			display: flex;
+			flex-direction: column;
+			.outlined-basic {
+                margin-top: 20px;
+                background-color: #ffc0cb;
+			}
+			h1 {
+				text-align: center;
+            }
+            Button {
+                margin: 25px auto;
+            }
+		}
+	}
+}
