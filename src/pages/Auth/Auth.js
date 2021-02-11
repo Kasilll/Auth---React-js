@@ -12,7 +12,7 @@ export default function Auth({ setAutchContext, setUsers }) {
 	const [ passwordErorr, setPasswordErorr ] = React.useState('Поле не может быть пустым');
 	const [ formValid, setFormValid ] = React.useState(true);
 	const [ conectServer, setConectServer ] = React.useState('');
-	
+
 	React.useEffect(
 		() => {
 			if (userNameErorr === '' && passwordErorr === '') {
@@ -24,7 +24,8 @@ export default function Auth({ setAutchContext, setUsers }) {
 		[ userNameErorr, passwordErorr ]
 	);
 
-	function sendTokenInBakend(token, setUsers) { // получения юзеров 
+	function sendTokenInBakend(token, setUsers) {
+		// получения юзеров
 		fetch('http://emphasoft-test-assignment.herokuapp.com/api/v1/users/', {
 			headers: {
 				accept: 'application/json',
@@ -36,21 +37,24 @@ export default function Auth({ setAutchContext, setUsers }) {
 			.then((users) => setUsers(users));
 	}
 
-	function onBlurUserName() { // вариладация username после отвода мышки
+	function onBlurUserName() {
+		// вариладация username после отвода мышки
 		if (userName.length === 0) {
 			setUserNameErorr('Поле не может быть пустым');
 			setUserNameDirty(true);
 		} else if (userName.length < 7) setUserNameErorr('user name должен быть больше 6 символов');
 		else setUserNameErorr('');
 	}
-	function onBlurPassword() { //// вариладация пароля после отвода мышки
+	function onBlurPassword() {
+		//// вариладация пароля после отвода мышки
 		if (password.length === 0) {
 			setPasswordErorr('Поле не может быть пустым');
 			setPasswordDirty(true);
 		} else if (password.length < 9) setPasswordErorr('пароль должен быть больше 8 символов');
 		else setPasswordErorr('');
 	}
-	function handlerChangeUserName(e) { //валедация username во время ввода
+	function handlerChangeUserName(e) {
+		//валедация username во время ввода
 		setUserName(e.target.value);
 		if (e.target.value.length < 7) {
 			setUserNameErorr('user name должен быть больше 6 символов');
@@ -60,7 +64,8 @@ export default function Auth({ setAutchContext, setUsers }) {
 			setUserNameErorr('');
 		}
 	}
-	function handlerChangePassword(e) { ///валедация password во время ввода
+	function handlerChangePassword(e) {
+		///валедация password во время ввода
 		setPassword(e.target.value);
 		if (e.target.value.length < 9) {
 			setPasswordErorr('пароль  должен быть больше 8 символов');
@@ -70,7 +75,8 @@ export default function Auth({ setAutchContext, setUsers }) {
 			setPasswordErorr('');
 		}
 	}
-	function handleSubmit(e) { // получнения токена
+	function handleSubmit(e) {
+		// получнения токена
 		e.preventDefault();
 		setFormValid(true);
 		fetch('http://emphasoft-test-assignment.herokuapp.com/api-token-auth/', {
@@ -85,8 +91,8 @@ export default function Auth({ setAutchContext, setUsers }) {
 			.then((r) => {
 				if (r.token) {
 					setConectServer(true);
-                    setAutchContext(true);
-                    sendTokenInBakend(r.token, setUsers) // если успешно авторизовались, отправляем полученный токен
+					setAutchContext(true);
+					sendTokenInBakend(r.token, setUsers); // если успешно авторизовались, отправляем полученный токен
 				} else {
 					setConectServer('Введен неправильно логин или пароль');
 					setFormValid(false);
@@ -110,6 +116,7 @@ export default function Auth({ setAutchContext, setUsers }) {
 					{userNameErorr &&
 					userNameDirty && <div style={{ color: 'red', fontSize: '12px' }}>{userNameErorr}</div>}
 					<TextField
+						type="password"
 						className="outlined-basic"
 						onChange={handlerChangePassword}
 						value={password}
@@ -120,12 +127,7 @@ export default function Auth({ setAutchContext, setUsers }) {
 					{passwordErorr &&
 					passwordDirty && <div style={{ color: 'red', fontSize: '12px' }}>{passwordErorr}</div>}
 
-					<Button
-						type="submit"
-						variant="contained"
-						color="secondary"
-						disabled={formValid}
-					>
+					<Button type="submit" variant="contained" color="secondary" disabled={formValid}>
 						Войти
 					</Button>
 				</form>
